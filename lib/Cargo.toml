@@ -1,11 +1,8 @@
 [package]
-name = "pngme"
+name = "pngme_lib"
 version = "0.1.0"
 edition = "2021"
-
-[lib]
-name = "pngme_lib"
-path = "src/lib.rs"
+license = "MIT"
 
 [dependencies]
 crc = "3.0.0"

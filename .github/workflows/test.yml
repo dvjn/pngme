@@ -6,8 +6,12 @@ env:
   RUSTFLAGS: -Dwarnings
 
 jobs:
-  test:
+  test-lib:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: lib
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -22,25 +26,13 @@ jobs:
         uses: swatinem/rust-cache@v2
 
       - name: Build
-        uses: actions-rs/cargo@v1
-        with:
-          command: build
-          args: --release --all-features --verbose
+        run: cargo build --release --all-features --verbose
 
       - name: Format (rustfmt)
-        uses: actions-rs/cargo@v1
-        with:
-          command: fmt
-          args: --verbose
+        run: cargo fmt --verbose
 
       - name: Lint (clippy)
-        uses: actions-rs/cargo@v1
-        with:
-          command: clippy
-          args: --release --verbose
+        run: cargo clippy --release --verbose
 
       - name: Test
-        uses: actions-rs/cargo@v1
-        with:
-          command: test
-          args: --release --verbose
+        run: cargo test --release --verbose
