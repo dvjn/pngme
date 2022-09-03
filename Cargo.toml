@@ -1,0 +1,11 @@
+[package]
+name = "pngme"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+
+[dependencies]
+anyhow = "1.0.63"
+clap = { version = "3.2.20", features = ["derive"] }
+fehler = "1.0.0"
+pngme_lib = { path = "./lib" }
