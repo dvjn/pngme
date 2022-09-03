@@ -8,5 +8,6 @@ name = "pngme_lib"
 path = "src/lib.rs"
 
 [dependencies]
+crc = "3.0.0"
 fehler = "1.0.0"
 thiserror = "1.0.33"
