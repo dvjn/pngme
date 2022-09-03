@@ -1,0 +1,46 @@
+name: Tests
+on: [push, pull_request]
+
+env:
+  CARGO_TERM_COLOR: always
+  RUSTFLAGS: -Dwarnings
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Rust Setup
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          components: rustfmt, clippy
+
+      - name: Cache Deps
+        uses: swatinem/rust-cache@v2
+
+      - name: Build
+        uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: --release --all-features --verbose
+
+      - name: Format (rustfmt)
+        uses: actions-rs/cargo@v1
+        with:
+          command: fmt
+          args: --verbose
+
+      - name: Lint (clippy)
+        uses: actions-rs/cargo@v1
+        with:
+          command: clippy
+          args: --release --verbose
+
+      - name: Test
+        uses: actions-rs/cargo@v1
+        with:
+          command: test
+          args: --release --verbose
